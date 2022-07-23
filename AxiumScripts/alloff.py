@@ -13,6 +13,8 @@ if(ax.chk_amp(1)):
 if(ax.chk_amp(2)):
 	ax.amp(2,False)
 
+shutdown_time = ax.get_sysvar('49106')
+
 ax.torus('off')
 print("Torus off")
 time.sleep(15)
