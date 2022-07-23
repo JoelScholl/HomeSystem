@@ -35,31 +35,25 @@ class HTML:
 
 # --------------------------- Homematic API ------------------------------------------
 class HM:
-	@staticmethod
-	def parse_xml(content:str):
-	xml = ET.fromstring(content)
-	return xml
+	def __init__(self):
+		return
 
-	@staticmethod
-	def call(cgi:str,params:str=''):
+	def parse_xml(self,content:str):
+		xml = ET.fromstring(content)
+		return xml
+
+	def call(self,cgi:str,params:str=''):
 		hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
-		response = html.get(hm_url,headers={},data={})
+		response = HTML.get(hm_url,headers={},data={})
 		return response
 
-	class get:
-		class sysvar():
-			def __init__(self, id):
-				self.id = id
-				self.sysvar = call('sysvar',id)
+	def getsysvar(self,id:str):
+		var = self.call('sysvar',id).content
+		return parse_xml(var)
 
-			def value(self):
-				print(self.sysvar)
-				return
-
-		def sysvarlist():
-			r = call('sysvarlist')
-			sysvarlist = parse_xml(r.content)
-			return sysvarlist
+	def getsysvarlist(self,arg:str=''):
+		varlist = self.call('sysvarlist',arg).content
+		return self.parse_xml(varlist)
 
 #-------------------------------------------------------------------------------------
 
@@ -76,8 +70,16 @@ class Axium:
 		html.post(page,headers=headers,data=payload,timeout=1)
 
 	class zone():
-		def __init__(self, name, id):
-			
+		def __init__(self, id):
+			self.name = __name__
+			self.id = id
+			self.src = None
+			self.vol = None
+			self.Mute = None
+		
+		def update(self):
+			return
+		
 	
 
 	def zone_id(zone:str):
