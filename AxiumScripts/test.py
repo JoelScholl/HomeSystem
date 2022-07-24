@@ -1,9 +1,8 @@
-from HomeSystem import Axium, HM
+from HomeSystem import Axium as ax, HM
 import xml.etree.ElementTree as ET
 
 hm = HM()
-sysvarlist = hm.getsysvarlist()
+sysvarlist = hm.get_sysvarlist()
 
 print(sysvarlist)
-print(ET.tostringlist(sysvarlist))
 

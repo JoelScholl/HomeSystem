@@ -1,18 +1,58 @@
 import requests
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET # Requests wrapper
 
-import HTML as html # Requests wrapper
+# --------------------------- Requests wrapper ------------------------------------------
+class html:
+	def get(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False):
+			while(loop):
+				print("Looping")
+				try:
+					r = requests.get(url,headers=headers,data=data,timeout=timeout)
+					return r
+				except:
+					continue
+					#print("Except")
+			r = requests.get(url,headers=headers,data=data,timeout=timeout)
+			return r
+
+	def post(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False):
+			while(loop):
+				#print("Looping")
+				try:
+					r = requests.post(url,headers=headers,data=data,timeout=timeout)
+					return r
+				except:
+					continue
+			print("Once with",url,headers,data,timeout)
+			r = requests.post(url,headers=headers,data=data,timeout=timeout)
+			#print("Done")
+			return r	
+			
+# ------------------------------------------------------------------------------------
 
 # --------------------------- Homematic API ------------------------------------------
-class HM:
-	
+class HM():
+	def __init__(self):
+		pass
 
-	def getsysvar(self,id:str):
-		var = self.call('sysvar',id).content
-		return parse_xml(var)
+	def parse_xml(self,content:str):
+		print(content.text)
+		print(type(content.text))
+		tree = ET.ElementTree(ET.fromstring(content.text))
+		root = tree.getroot()
+		return root
 
-	def getsysvarlist(self,arg:str=''):
-		varlist = self.call('sysvarlist',arg).content
+	def call(self,cgi:str,params:str=''):
+		hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
+		response = html.get(hm_url,headers={},data={})
+		return response
+
+	def get_sysvar(self,id:str):
+		var = self.call('sysvar',id)
+		return self.parse_xml(var)
+
+	def get_sysvarlist(self,arg:str=''):
+		varlist = self.call('sysvarlist',arg)
 		return self.parse_xml(varlist)
 
 #-------------------------------------------------------------------------------------
