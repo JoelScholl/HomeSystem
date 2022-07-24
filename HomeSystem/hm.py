@@ -8,7 +8,8 @@ def parse_xml(content:str):
 
 def call(cgi:str,params:str=''):
     hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
-    response = www.get(hm_url,headers={},data={})
+    #print("Calling:",hm_url)
+    response = www.get(hm_url,headers={},data={},timeout=10)
     if(response):
         return response
 
@@ -23,3 +24,11 @@ def get_sysvarlist(arg:str=''):
     #for child in varlist:
     #	print(child.attrib)
     return varlist
+
+def get_state(device_id:str, channel_id:str='', datapoint_id:str=''):
+    state_xml = call('state','?device_id='+device_id+'&channel_id='+channel_id+'&datapoint_id='+datapoint_id)
+    state = parse_xml(state_xml)
+    return state
+
+def get_state_val(device_id:str, channel_id:str='', datapoint_id:str=''):
+    return get_state(device_id,channel_id,datapoint_id)[0].attrib['value']

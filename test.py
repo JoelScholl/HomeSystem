@@ -2,7 +2,8 @@ import HomeSystem.audio as audio
 import HomeSystem.hm as hm
 
 
-varlist = hm.get_sysvarlist()
+state = hm.get_state('5263','5293','5297')[0].attrib['value']
+state2 = hm.get_state_val('5263','5293','5297')
 
-for child in varlist:
-    print(child.attrib)
+print(state)
+print(state2)
