@@ -8,21 +8,21 @@ time_chk = True if (((time.localtime()[3] == int(shutdown_time[0:2])) and (abs(t
 master_chk = False if hm.get_state_val('5263','5293','5297') == 'true' else True
 
 #if(master_chk):
-if(audio.chk_beast()):
+if(audio.get_beast()):
     print("Shutting down Beast!")
-	audio.set_beast()
+    audio.set_beast()
 
 if(audio.get_amp(0)):
     print("Shutting down Amp 1")
-	audio.set_amp(0,False)
+    audio.set_amp(0,False)
 
 if(audio.get_amp(1)):
     print("Shutting down Amp 2")
-	audio.set_amp(1,False)
+    audio.set_amp(1,False)
 
 if(audio.get_amp(2)):
     print("Shutting down Amp 3")
-	audio.set_amp(2,False)
+    audio.set_amp(2,False)
 
 for i in range(20):
     print("Second: ",i)
@@ -34,6 +34,6 @@ for i in range(20):
 
 
 # print("Torus off")
-# time.sleep(15)
+# time.sleep(10)
 # ax.torus('off')
 # print("Torus off")
