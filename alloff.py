@@ -19,14 +19,6 @@ def soft_shutdown():
         print("Shutting down Amp 3")
         audio.set_amp(2,False)
 
-for i in range(20):
-    print("Second: ",i)
-    audio.get_amp(0)
-    audio.get_amp(1)
-    audio.get_amp(2)
-    audio.get_beast()
-    time.sleep(1)
-
 shutdown_time = hm.get_sysvar('49106')['value_text']
 auto_chk = True if (hm.get_sysvar('50807')['value_text']=='auto') else False
 time_chk = True if (((time.localtime()[3] == int(shutdown_time[0:2])) and (abs(time.localtime()[4]-int(shutdown_time[3:5]))<10))) else False
