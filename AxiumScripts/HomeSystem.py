@@ -36,8 +36,6 @@ class HM():
 		pass
 
 	def parse_xml(self,content:str):
-		print(content.text)
-		print(type(content.text))
 		tree = ET.ElementTree(ET.fromstring(content.text))
 		root = tree.getroot()
 		return root
