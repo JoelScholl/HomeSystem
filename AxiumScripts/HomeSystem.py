@@ -1,51 +1,11 @@
 import requests
 import xml.etree.ElementTree as ET
 
-# -------------------- Request wrapper ----------------------------------------------- 
-class HTML:
-	@staticmethod
-	def get(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False):
-		while(loop):
-			print("Looping")
-			try:
-				r = requests.get(url,headers=headers,data=data,timeout=timeout)
-				return r
-			except:
-				continue
-				#print("Except")
-		r = requests.get(url,headers=headers,data=data,timeout=timeout)
-		return r
-
-	@staticmethod
-	def post(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False):
-		while(loop):
-			#print("Looping")
-			try:
-				r = requests.post(url,headers=headers,data=data,timeout=timeout)
-				return r
-			except:
-				continue
-		print("Once with",url,headers,data,timeout)
-		r = requests.post(url,headers=headers,data=data,timeout=timeout)
-		#print("Done")
-		return r	
-
-# ------------------------------------------------------------------------------------
-
+import HTML as html # Requests wrapper
 
 # --------------------------- Homematic API ------------------------------------------
 class HM:
-	def __init__(self):
-		return
-
-	def parse_xml(self,content:str):
-		xml = ET.fromstring(content)
-		return xml
-
-	def call(self,cgi:str,params:str=''):
-		hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
-		response = HTML.get(hm_url,headers={},data={})
-		return response
+	
 
 	def getsysvar(self,id:str):
 		var = self.call('sysvar',id).content
