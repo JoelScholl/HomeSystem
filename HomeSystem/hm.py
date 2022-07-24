@@ -1,4 +1,4 @@
-import wreq
+import HomeSystem.www as www
 import xml.etree.ElementTree as ET
 
 def parse_xml(content:str):
@@ -8,8 +8,9 @@ def parse_xml(content:str):
 
 def call(cgi:str,params:str=''):
     hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
-    response = wreq.get(hm_url,headers={},data={})
-    return response
+    response = www.get(hm_url,headers={},data={})
+    if(response):
+        return response
 
 def get_sysvar(id:str):
     var_xml = call('sysvar','?ise_id='+id)
