@@ -1,7 +1,4 @@
 import HomeSystem.www as www
-import logging
-
-logging.basicConfig(filename="AudioLog.txt", level=logging.DEBUG)
 
 def send_cmd(payload):
         '''Takes Payload and sends command.'''
@@ -64,15 +61,15 @@ def get_beast():
     try:
         r = www.get(beast_url,headers=headers,data={},timeout=2)
         if(r.ok):
-            logging.debug("Beast is running!")
+            print("Beast is runnng!")
             return True
     except:
-        logging.debug("Beast is not running!")
+	print("Beast is not running!")
         return False
 
 def get_amp(amp:int):
     '''Takes an integer in  {0,1,2} and returns the on/off state of the Amp.'''
-    if(int not in [0,1,2]):
+    if(int not in range(2)):
         print("Wrong input! Call 'get_amp' with an integer in {0,1,2}!")
 
     get_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
@@ -84,12 +81,12 @@ def get_amp(amp:int):
 def set_amp(amp:int,state:bool):
     func_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=write&name=cur-standby&value="+str(int(state))+"&r=0.666583746119017"
     r = www.get(func_amp_url,headers={},data={},timeout=1)
+    print(r)
 
 def set_beast():
     beast_off = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
     r = www.get(beast_off,headers={},data={},timeout=1)
-    if(type(r)!=None):
-       logging.debug("Response is: "+(type(r)!=None)*str(r.text))
+    print(r)
 
 
 def set_torus(state:str):
@@ -97,4 +94,4 @@ def set_torus(state:str):
     payload = {}
     headers = {'Host':'192.168.1.31','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','Accept':'text/www,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Connection':'keep-alive','Referer':'http://192.168.1.31/protect/power.htm','Upgrade-Insecure-Requests':'1','Authorization':'Basic YWRtaW46YXZy'}
     r = www.get(torus_url,headers=headers,data=payload,timeout=3)
-    logging.debug("Response is: "+str(r.text))
+    print(r)
