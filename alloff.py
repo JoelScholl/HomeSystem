@@ -33,8 +33,6 @@ logging.debug("Current time is: "+str(time.localtime()[3]))
 logging.debug("Time check is thus: "+str(time_chk))
 logging.debug("Master Check is "+str(master_chk))
 
-master_chk = True
-time_chk = True
 
 if(auto_chk and master_chk):
     logging.debug("Autocheck and Mastercheck passed!")

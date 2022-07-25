@@ -88,7 +88,8 @@ def set_amp(amp:int,state:bool):
 def set_beast():
     beast_off = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
     r = www.get(beast_off,headers={},data={},timeout=1)
-    logging.debug("Response is: "+str(r.text))
+    if(type(r)!=None):
+       logging.debug("Response is: "+(type(r)!=None)*str(r.text))
 
 
 def set_torus(state:str):
