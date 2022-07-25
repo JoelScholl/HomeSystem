@@ -1,4 +1,7 @@
 import HomeSystem.www as www
+import logging
+
+logging.basicConfig(filename="AudioLog.txt", level=logging.DEBUG)
 
 def send_cmd(payload):
         '''Takes Payload and sends command.'''
@@ -6,7 +9,7 @@ def send_cmd(payload):
         page = "http://192.168.1.58/axium.cgi?id="+id
         headers = {'Host': '192.168.1.58','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','Accept': '*/*','Accept-Language': 'en-US,en;q=0.5','Accept-Encoding': 'gzip, deflate','Content-Type': 'application/x-axium','Content-Length': '8','Origin': 'http://192.168.1.58','Connection': 'keep-alive','Referer': 'http://192.168.1.58/zone.html?id=3764335675'}
         print("Posting!")
-        html.post(page,headers=headers,data=payload,timeout=1)
+        www.post(page,headers=headers,data=payload,timeout=1)
 
 class zone():
     def __init__(self, id):
@@ -86,7 +89,7 @@ def set_amp(amp:int,state:bool):
 def set_beast():
     beast_off = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
     r = www.get(beast_off,headers={},data={},timeout=1)
-    print("Killed it!")
+    logging.debug("Response is: "+r.text)
 
 
 def set_torus(state:str):
