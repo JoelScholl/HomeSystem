@@ -3,7 +3,7 @@ import HomeSystem.hm as hm
 import time
 import logging
 
-logging.basicConfig(filename="log.txt", level=logging.DEBUG)
+logging.basicConfig(filename="ScriptLog.txt", level=logging.DEBUG)
 
 def soft_shutdown():
     if(audio.get_beast()):
