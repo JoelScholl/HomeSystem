@@ -64,7 +64,7 @@ def get_beast():
             print("Beast is runnng!")
             return True
     except:
-    print("Beast is not running!")
+        print("Beast is not running!")
         return False
 
 def get_amp(amp:int):
