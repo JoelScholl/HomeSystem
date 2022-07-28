@@ -1,9 +1,13 @@
 import HomeSystem.www as www
 import xml.etree.ElementTree as ET
 import time
+import builtins
 
-def print(input:str):
-    builtins.print("["+time.asctime()+"]: "+input)
+def print(*args:str):
+    input_str=''
+    for strs in args:
+        input_str+=' '+strs
+    builtins.print("["+time.asctime()+"]: "+input_str)
 
 def parse_xml(content:str):
     tree = ET.ElementTree(ET.fromstring(content.text))

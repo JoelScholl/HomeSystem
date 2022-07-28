@@ -1,9 +1,13 @@
 import HomeSystem.www as www
 import time
+import builtins
 
-def print(input:str):
-    builtins.print("["+time.asctime()+"]: "+input)
-    
+def print(*args:str):
+    input_str=''
+    for strs in args:
+        input_str+=' '+strs
+    builtins.print("["+time.asctime()+"]: "+input_str)
+
 def send_cmd(payload):
         '''Takes Payload and sends command.'''
         id='3764335675'

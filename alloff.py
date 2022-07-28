@@ -1,9 +1,13 @@
 import HomeSystem.audio as audio
 import HomeSystem.hm as hm
 import time
+import builtins
 
-def print(input:str):
-    builtins.print("["+time.asctime()+"]: "+input)
+def print(*args:str):
+    input_str=''
+    for strs in args:
+        input_str+=' '+strs
+    builtins.print("["+time.asctime()+"]: "+input_str)
 
 def soft_shutdown():
     if(audio.get_beast()):
