@@ -35,6 +35,8 @@ shutdown_time = hm.get_sysvar('49106')['value_text']
 auto_chk = True if (hm.get_sysvar('50807')['value_text']=='auto') else False
 time_chk = True if (((time.localtime()[3] == int(shutdown_time[0:2])) and (abs(time.localtime()[4]-int(shutdown_time[3:5]))<50))) else False
 master_chk = False if hm.get_state_val('5263','5293','5297') == 'true' else True
+#beast_shutdown_time 49106 torus shutdown_time: 52798
+#best_auto_manuel: 52847 torus_auto_manuel: 50807
 
 print(shutdown_time,time.localtime()[3],time_chk,master_chk)
 
