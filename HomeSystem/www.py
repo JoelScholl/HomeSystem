@@ -1,4 +1,9 @@
 import requests
+import time
+
+def print(input:str):
+    builtins.print("["+time.asctime()+"]: "+input)
+
 
 def get(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False):
 	while(loop):

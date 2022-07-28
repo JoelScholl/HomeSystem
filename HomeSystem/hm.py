@@ -1,5 +1,9 @@
 import HomeSystem.www as www
 import xml.etree.ElementTree as ET
+import time
+
+def print(input:str):
+    builtins.print("["+time.asctime()+"]: "+input)
 
 def parse_xml(content:str):
     tree = ET.ElementTree(ET.fromstring(content.text))
@@ -8,7 +12,7 @@ def parse_xml(content:str):
 
 def call(cgi:str,params:str=''):
     hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
-    #print("Calling:",hm_url)
+    print("Calling:",hm_url)
     response = www.get(hm_url,headers={},data={},timeout=10)
     if(response):
         return response
