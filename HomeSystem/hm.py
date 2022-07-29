@@ -3,10 +3,10 @@ import xml.etree.ElementTree as ET
 import time
 import builtins
 
-def print(*args:str):
+def print(*args):
     input_str=''
     for strs in args:
-        input_str+=' '+strs
+        input_str+=' '+str(strs)
     builtins.print("["+time.asctime()+"]: "+input_str)
 
 def parse_xml(content:str):

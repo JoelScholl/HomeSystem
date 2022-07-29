@@ -2,10 +2,10 @@ import requests
 import time
 import builtins
 
-def print(*args:str):
+def print(*args):
     input_str=''
     for strs in args:
-        input_str+=' '+strs
+        input_str+=' '+str(strs)
     builtins.print("["+time.asctime()+"]: "+input_str)
 
 
