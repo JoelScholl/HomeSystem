@@ -31,22 +31,28 @@ def soft_shutdown():
     print("Shutting down Torus!")
     audio.set_torus('off')
 
-shutdown_time = hm.get_sysvar('49106')['value_text']
+torus_shutdown_time = hm.get_sysvar('49106')['value_text']
+#beast_shutdown_time = hm.get_sysvar('')
+
 auto_chk = True if (hm.get_sysvar('50807')['value_text']=='auto') else False
-time_chk = True if (((time.localtime()[3] == int(shutdown_time[0:2])) and (abs(time.localtime()[4]-int(shutdown_time[3:5]))<50))) else False
-master_chk = False if hm.get_state_val('5263','5293','5297') == 'true' else True
+time_chk = True if (((time.localtime()[3] == int(torus_shutdown_time[0:2])) and (abs(time.localtime()[4]-int(torus_shutdown_time[3:5]))<50))) else False
+
+#beast_auto_chk = True if (hm.get_sysvar('52847')['value']=='true') else False
+#beast_time_chk =
+
+joel_chk = False if hm.get_state_val('5263','5293','5297') == 'true' else True
 tv_chk = False if hm.get_state_val('5141','5173','5179') == 'true' else True
-rkport_chk = False if hm.get_state_val('5337','5379','5383') == 'true' else True
+rkport_chk = False if hm.get_state_val('5336','5379','5383') == 'true' else True
 
+print("Shutdown Time:",torus_shutdown_time,"Time_Chk",time_chk,"joel_chk",joel_chk,"tv_chk",tv_chk,"rkport_chk",rkport_chk)
 
-#beast_shutdown_time 49106 torus shutdown_time: 52798
-#best_auto_manuel: 52847 torus_auto_manuel: 50807
-
-
-print(shutdown_time,time.localtime()[3],time_chk,master_chk)
-
-if(auto_chk and master_chk):
-    print("Autocheck and Mastercheck passed!")
-    if(time_chk or (time.localtime()[3]==1)):
-        print("Timecheck passed, running soft shutdown")
+def main():
+    if(time_chk and auto_chk and joel_chk and tv_chk and rkport_chk):
+        print("All checks passed!")
         soft_shutdown()
+
+    elif(time.localtime()[3]==1):
+        print("Forcing shutdown at 1:00 am!")
+        soft_shutdown()
+
+main()
