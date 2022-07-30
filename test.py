@@ -11,7 +11,11 @@ def print(*args):
         input_str+=' '+str(strs)
     builtins.print("["+time.asctime()+"]: "+input_str)
 
-print("This works","well")
+tv_chk = False if hm.get_state_val('5141','5173','5179') == 'true' else True
+rkport_chk = False if hm.get_state_val('5337','5379','5383') == 'true' else True
+
+print(tv_chk)
+print(rkport_chk)
 
 # varlist = hm.get_sysvarlist()
 # for childs in varlist:
