@@ -9,8 +9,8 @@ def print(*args):
     builtins.print("["+time.asctime()+"]: "+input_str)
 
 
-def get(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False):
-	while(loop):
+def get(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False,nmax:int = 10):
+	while(loop and nmax>0):
 		print("Looping")
 		try:
 			r = requests.get(url,headers=headers,data=data,timeout=timeout)
@@ -18,6 +18,7 @@ def get(url:str,headers = None, data = None, timeout:int = 3, loop:bool = False)
 			return r
 		except:
 			print("Except")
+			nmax-=1
 			continue
 			
 	try:
