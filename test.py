@@ -24,19 +24,24 @@ def print(*args):
 
 from flask import Flask
 from flask import request
+from markupsafe import escape
 
 app = Flask(__name__)
 
 #Main route handles all
-@app.route('/')
-def requesthandler():
-    arglist = request.args.get('sysvar_id')
-    return '<h1>Hello, World!</h1>'
+@app.route('/sysvar', methods=['GET'])
+def update():
+    id = request.args.get('id')
+    value = request.args.get('value')
+    builtins.print(id)
+    builtins.print(value)
+    return '<h3>ID: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(value))
 
 #Run Flask server upon running process
 if __name__ == '__main__':
-    app.run(debug=True,port=50000,host='192.168.1.44')
+    app.run(debug=True,port=50000,host='192.168.0.184')
 
+#http://192.168.0.184:50000/sysvar?id=time&value=1700
 
 ## Homematic Script
 # string url= "http://192.168.178.200/anaus.php";
