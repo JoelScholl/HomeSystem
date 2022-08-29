@@ -32,22 +32,13 @@ app = Flask(__name__)
 @app.route('/sysvar', methods=['GET'])
 def update():
     id = request.args.get('id')
+    name = request.args.get('name')
     value = request.args.get('value')
-    builtins.print(id)
-    builtins.print(value)
+    builtins.print("ID:",id)
+    builtins.print("Name:",name)
+    builtins.print("Value:",value)
     return '<h3>ID: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(value))
 
 #Run Flask server upon running process
 if __name__ == '__main__':
-    app.run(debug=True,port=50000,host='192.168.0.184')
-
-#http://192.168.0.184:50000/sysvar?id=time&value=1700
-
-## Homematic Script
-# string url= "http://192.168.178.200/anaus.php";
-# if ( (dom.GetObject(ID_DATAPOINTS)).Get("CUxD.CUX2801001:1.CMD_EXEC")) {
-#     (dom.GetObject(ID_DATAPOINTS)).Get("CUxD.CUX2801001:1.CMD_EXEC").State("curl -s -k " url);
-# }
-# else {
-#     WriteLine("Datenpunkt nicht vorhanden");
-# }
+    app.run(debug=True,port=50000,host='192.168.1.135')
