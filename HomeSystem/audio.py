@@ -82,6 +82,8 @@ def get_amp(amp:int):
 
     get_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
     r = www.get(get_amp_url,headers={'Host':'192.168.1.32'},data={}, timeout=3,loop=True)
+    if(r is None):
+        return False
     state = int(r.text[-3])
     print("Amp at","http://192.168.1.3"+str((2+2*amp)),"is",f'{"On" if state else "Off"}')
     return bool(state)
