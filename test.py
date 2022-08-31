@@ -19,5 +19,5 @@ def print(*args):
 #print(tv_chk)
 #print(rkport_chk)
 
-t = StrToCron("17:07")
+t = StrToCron("22:30")
 schedShutdown(t)
