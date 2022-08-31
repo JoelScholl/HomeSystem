@@ -5,7 +5,7 @@ from Lib.logging import print
 import xml.etree.ElementTree as ET
 import time
 import builtins
-from Lib.scheduler import StrToCron
+from Lib.scheduler import *
 
 def print(*args):
     input_str=''
@@ -20,4 +20,4 @@ def print(*args):
 #print(rkport_chk)
 
 t = StrToCron("17:07")
-print(t)
+schedShutdown(t)
