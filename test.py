@@ -5,6 +5,7 @@ from Lib.logging import print
 import xml.etree.ElementTree as ET
 import time
 import builtins
+from Lib.scheduler import StrToCron
 
 def print(*args):
     input_str=''
@@ -18,5 +19,5 @@ def print(*args):
 #print(tv_chk)
 #print(rkport_chk)
 
-var_str = hm.VarToString("52798","1")
-print(var_str)
+t = StrToCron("17:07")
+print(t)
