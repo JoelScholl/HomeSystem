@@ -11,7 +11,7 @@ def schedShutdown(time:str):
     path = '/etc/cron.d/multimedia_off'
     with open(path,"r") as f:
         data = f.read()
-    print(data)
-    print(type(data))
-    return
+
+    with open(path,"w") as f:
+        f.write(re.sub(data,time+data[4:],data))
  
