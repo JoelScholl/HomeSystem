@@ -1,3 +1,8 @@
+import os
+
+def sudo(command):
+    return os.system(f"sudo bash -c '{command}'")
+
 def StrToCron(time:str):
     hour = time[:2]
     minute = time[3:]
@@ -7,5 +12,7 @@ def schedShutdown(time:str):
     path = '/etc/cron.d/multimedia_off'
     cron_t = StrToCron(time)
     print(cron_t)
-    with open(path,"w") as f:
-        f.write(cron_t+" * * * root python3 /home/pi/HomeSystem/alloff.py >> /var/log/home.log 2>&1\n")
+    cmd='printf "'+cron_t+' * * * root python3 /home/pi/HomeSystem/alloff.py >> /var/log/home.log 2>&1\n" > '+path
+    print(cmd)
+    return sudo(cmd)
+    
