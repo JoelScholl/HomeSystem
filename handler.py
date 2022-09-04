@@ -26,7 +26,7 @@ def sysvar():
 
     #Switch to correct function
     if id=='52798':
-        schedShutdown(value)
+        schedule('torusOff',value)
 
     return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
 

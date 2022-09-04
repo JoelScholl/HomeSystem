@@ -1,13 +1,6 @@
 import Lib.audio as audio
 import Lib.hm as hm
-import time
-import builtins
-
-def print(*args):
-    input_str=''
-    for strs in args:
-        input_str+=' '+str(strs)
-    builtins.print("["+time.asctime()+"]: "+input_str)
+from Lib.logging import print
 
 def soft_shutdown():
     if(audio.getBeast()):

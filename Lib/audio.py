@@ -1,12 +1,6 @@
 import Lib.www as www
 import time
-import builtins
-
-def print(*args):
-    input_str=''
-    for strs in args:
-        input_str+=' '+str(strs)
-    builtins.print("["+time.asctime()+"]: "+input_str)
+from Lib.logging import print
 
 def sendCmd(payload):
         '''Takes Payload and sends command.'''
