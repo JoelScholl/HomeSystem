@@ -77,8 +77,8 @@ def getBeast():
 
 def getAmp(amp:int):
     '''Takes an integer in  {0,1,2} and returns the on/off state of the Amp.'''
-    if(int not in range(2)):
-        print("Wrong input! Call 'getAmp' with an integer in {0,1,2}!")
+    if(amp not in range(2)):
+        print("Wrong input"+amp+"! Call 'getAmp' with an integer in {0,1,2}!")
 
     get_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
     r = www.get(get_amp_url,headers={'Host':'192.168.1.32'},data={}, timeout=3,loop=True)
