@@ -3,6 +3,7 @@ from flask import request
 from markupsafe import escape
 import Lib.hm as hm
 from Lib.logging import print
+from Lib.scheduler import *
 
 app = Flask(__name__)
 
@@ -16,7 +17,3 @@ def update():
     print("Name:",name)
     print("Value:",value)
     return '<h3>ID: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(value))
-
-#Run Flask server upon running process for debugging
-if __name__ == '__main__':
-    app.run(debug=True,port=50000,host='192.168.1.135')

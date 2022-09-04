@@ -1,8 +1,3 @@
-from dataclasses import dataclass
-from genericpath import exists
-from os import path, remove
-import re
-
 def StrToCron(time:str):
     hour = time[:2]
     minute = time[3:]
@@ -10,6 +5,7 @@ def StrToCron(time:str):
 
 def schedShutdown(time:str):
     path = '/etc/cron.d/multimedia_off'
-    print(time)
+    cron_t = StrToCron(time)
+    print(cron_t)
     with open(path,"w") as f:
-        f.write(time+" * * * python3 /home/pi/HomeSystem/alloff.py >> /var/log/home.log 2>&1")
+        f.write(cron_t+" * * * root python3 /home/pi/HomeSystem/alloff.py >> /var/log/home.log 2>&1\n")
