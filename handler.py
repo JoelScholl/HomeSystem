@@ -7,7 +7,12 @@ from Lib.scheduler import *
 
 app = Flask(__name__)
 
-#Main route handles all
+#Manage torus_shutdown_time changes
+@app.route('/sysvar/id=52798', methods=['GET'])
+def torus_shutdown_time():
+    return '<h3>I choose you!</h3>'
+
+#Catch stray routes
 @app.route('/sysvar', methods=['GET'])
 def mainroute():
     id = request.args.get('id')
@@ -18,6 +23,3 @@ def mainroute():
     print("Value:",value)
     return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
 
-@app.route('/sysvar/id=52798', methods=['GET'])
-def torus_shutdown_time():
-    return '<h3>I choose you!</h3>'
