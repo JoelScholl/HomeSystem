@@ -8,7 +8,7 @@ from Lib.scheduler import *
 app = Flask(__name__)
 
 #Manage torus_shutdown_time changes
-@app.route('/sysvar/id=52798', methods=['GET'])
+@app.route('/sysvar?id=52798', methods=['GET'])
 def torus_shutdown_time():
     return '<h3>I choose you!</h3>'
 
