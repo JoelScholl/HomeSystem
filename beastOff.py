@@ -5,7 +5,7 @@ from Lib.logging import print
 
 auto_chk = True if (hm.getSysVar('52847')['value_text']=='auto') else False
 
-print("Auto_Ch:",auto_chk)
+print("Auto_Chk:",auto_chk)
 
 def main():
     if(auto_chk):
