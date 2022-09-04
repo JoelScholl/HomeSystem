@@ -24,12 +24,12 @@ def soft_shutdown():
     print("Shutting down Torus!")
     audio.setTorus('off')
 
-torus_shutdown_time = hm.getSysVar('49106')['value_text']
+#torus_shutdown_time = hm.getSysVar('49106')['value_text']
 #beast_shutdown_time = hm.getSysVar('')
 
 auto_chk = True if (hm.getSysVar('50807')['value_text']=='auto') else False
-time_chk = True if (((time.localtime()[3] == int(torus_shutdown_time[0:2])) and (abs(time.localtime()[4]-int(torus_shutdown_time[3:5]))<50))) else False
-time_chk = True
+#time_chk = True if (((time.localtime()[3] == int(torus_shutdown_time[0:2])) and (abs(time.localtime()[4]-int(torus_shutdown_time[3:5]))<50))) else False
+#time_chk = True
 #beast_auto_chk = True if (hm.getSysVar('52847')['value']=='true') else False
 #beast_time_chk =
 
