@@ -34,5 +34,5 @@ def sysvar():
 
 @app.route('/plex')
 def plexhook():
-    print(request.args.getlist())
+    print(request.data)
     return

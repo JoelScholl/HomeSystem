@@ -8,3 +8,6 @@ def print(*args):
     for strs in args:
         input_str+=' '+str(strs)
     builtins.print("["+time.asctime()+"]: "+input_str)
+
+def log(*args):
+    return
