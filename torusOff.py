@@ -1,6 +1,7 @@
 import Lib.audio as audio
 import Lib.hm as hm
 from Lib.logging import print
+import time
 
 def soft_shutdown():
     if(audio.getBeast()):

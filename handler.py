@@ -32,3 +32,6 @@ def sysvar():
 
     return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
 
+@app.route('/plex')
+def plexhook():
+    return
