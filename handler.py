@@ -9,11 +9,15 @@ app = Flask(__name__)
 
 #Main route handles all
 @app.route('/sysvar', methods=['GET'])
-def update():
+def mainroute():
     id = request.args.get('id')
     name = request.args.get('name')
     value = hm.VarToString(id,request.args.get('value'))
     print("ID:",id)
     print("Name:",name)
     print("Value:",value)
-    return '<h3>ID: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(value))
+    return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
+
+@app.route('/sysvar/id=52798', methods=['GET'])
+def torus_shutdown_time():
+    return '<h3>I choose you!</h3>'
