@@ -34,5 +34,6 @@ def sysvar():
 
 @app.route('/plex')
 def plexhook():
-    print(request.data)
+    with open('home/pi/HomeSystem/PlexLog.log','w') as f:
+        f.write(request.data)
     return
