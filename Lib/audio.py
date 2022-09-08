@@ -22,30 +22,58 @@ class zone():
         return
 
 def zoneID(zone:str):
-    zone_dict = {'04':'04','4':'04','joel':'04',
-                '06':'06','6':'06','joelbad':'06'}
+    zone_dict = {'kueche':'01', #Küche
+                 'buero':'03', #Büro
+                 'joel':'04', #Joel
+                 'joelbad':'06', #Bad Joel
+                 'wohnen':'07', #Wohnen
+                 'eltern':'09', #Eltern
+                 'elternbad':'0A', #Bad Eltern
+                 'wintergarten':'0B', #Wintergarten
+                 'sitzplatz':'0C', #Sitzplatz
+                 'terrasse':'0D' #Terasse
+                }
     return zone_dict[zone]
 
 def stateID(state:str):
-    state_dict = {'0':'0','off':'0',
-                '1':'1','on':'1'}
+    state_dict = {'off':'00', #On
+                  'on':'01'   #Off
+                  }
     return state_dict[state]
 
 def srcID(src:str):
-    src_dict = {'05':'05','5':'05','janine':'05','Musik Janine':'05', #Musik Janine: 5
-                '06':'06','6':'06','oppo':'06','Oppo DVD':'06', #Oppo DVD: 06
-                '08':'08','8':'08','tvjoel':'08','TV Joël':'08', #TV Joël: 08
-                '09':'09','9':'09', 'Multiroom':'09', #Multiroom: 09
-                '0A':'0A','A':'0A','Musik Marcel':'0A', #Musik Marcel:  0A
-                '0B':'0B','B':'0B','wohnen':'0B','TV Wohnen':'0B', #TV Wohnen: 0B
-                '21':'21','radio1':'21','iRadio 1':'21', #iRadio 1: 21
-                '12':'12','radio1':'12','iRadio 2':'12' #iRadio 2: 12
+    src_dict = {'janine':'05', #Musik Janine: 5
+                'oppo':'06', #Oppo DVD: 06
+                'tvjoel':'08', #TV Joël: 08
+                'multiroom':'09', #Multiroom: 09
+                'marcel':'0A', #Musik Marcel:  0A
+                'tvwohnen':'0B', #TV Wohnen: 0B
+                'radio1':'21', #iRadio 1: 21
+                'radio2':'12' #iRadio 2: 12
                 }
     return src_dict[src]
 
+##Functions:
 
-def setZone(zone:str, state:str):
-    payload = '01'+zoneID(zone)+'0'+stateID(state)+'\r\n'
+ # 01 Toggle Power
+ # 02 Mute
+ # 03 Source
+ # 04 Volume
+ # 05 Bass
+ # 06 Trebble
+ # 07 Balance
+ # OC PoVolume Toggle / Loudness Toggle / Mono
+ # 0D Max. Volume
+ # 44 Gain
+ # 48 PoVolume
+
+def set(zone:str, state:str, src:str, vol:str):
+    payload = '01'+zoneID(zone)+stateID(state)+'\r\n'+'03'+zoneID(zone)+srcID(src)+'\r\n'+'04'+zoneID(zone)+vol+'\r\n'
+    print(payload)
+    sendCmd(payload)
+
+def setState(zone:str, state:str):
+    payload = '01'+zoneID(zone)+stateID(state)+'\r\n'
     print(payload)
     sendCmd(payload)
 
@@ -53,8 +81,8 @@ def setSrc(zone:str, src:str):
     payload = '03'+zoneID(zone)+srcID(src)+'\r\n'
     sendCmd(payload)
 
-def setVol(zone:str='4', vol:str='10'):
-    payload = '04'+zone+vol+'\r\n'
+def setVol(zone:str, vol:str='10'):
+    payload = '04'+zoneID(zone)+vol+'\r\n'
     sendCmd(payload)
 
 def getBeast():
