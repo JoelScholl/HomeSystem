@@ -1,13 +1,16 @@
+
+import time
+import json
+
 from flask import Flask
 from flask import request
 from markupsafe import escape
+
 import Lib.hm as hm
 import Lib.audio as audio
+import torusOff
 from Lib.logging import print
 from Lib.scheduler import *
-import time
-import json
-from torusOff import main as torusOff
 
 ### States ###
 #tv = False
