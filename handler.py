@@ -54,4 +54,4 @@ def plexhook():
                 else:
                     audio.setState(deviceID('joelaux'))
                     audio.set('joel','on','multiroom','60')
-    return
+        return
