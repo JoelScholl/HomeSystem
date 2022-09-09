@@ -49,11 +49,11 @@ def plexhook():
             if payload['event']=='media.play' or payload['event']=='media.resume':
                 if(not audio.getTorus()):
                     audio.setTorus('on')
-                    hm.setState(hm.deviceID('joelaux','true'))
+                    hm.setState(hm.deviceID('joelaux'),'true')
                     time.sleep(10)
                     audio.set('joel','on','multiroom','60')
                 else:
-                    hm.setState(hm.deviceID('joelaux','true'))
+                    hm.setState(hm.deviceID('joelaux'),'true')
                     audio.set('joel','on','multiroom','60')
         return
 
