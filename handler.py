@@ -7,6 +7,7 @@ from Lib.logging import print
 from Lib.scheduler import *
 import time
 import json
+from torusOff import main as torusOff
 
 ### States ###
 #tv = False
@@ -48,10 +49,15 @@ def plexhook():
             if payload['event']=='media.play' or payload['event']=='media.resume':
                 if(not audio.getTorus()):
                     audio.setTorus('on')
-                    audio.setState(deviceID('joelaux'))
+                    audio.setState(audio.deviceID('joelaux'))
                     time.sleep(10)
                     audio.set('joel','on','multiroom','60')
                 else:
-                    audio.setState(deviceID('joelaux'))
+                    audio.setState(audio.deviceID('joelaux'))
                     audio.set('joel','on','multiroom','60')
         return
+
+@app.route('/torus_shutdown')
+def run_soft_shutdown():
+    torusOff()
+    return
