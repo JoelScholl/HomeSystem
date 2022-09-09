@@ -43,7 +43,7 @@ def sysvar():
 @app.route('/plex', methods=['POST'])
 def plexhook():
         payload = json.loads(request.form.get('payload'))
-        This could cause potentially forceful takeover of speaker source if left playing in the background.
+        #This could cause potentially forceful takeover of speaker source if left playing in the background.
         if payload['Player']['uuid'] == '022f12ae-dae4-4196-a78e-ba31e7f9b634':
             if payload['event']=='media.play' or payload['event']=='media.resume':
                 if(not audio.getTorus()):
