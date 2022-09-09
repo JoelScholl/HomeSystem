@@ -33,7 +33,7 @@ def sysvar():
     #Switch to correct function
     if id=='52798':
         schedule('torusOff',value)
-    if id=='60189'
+    if id=='60189':
         schedule('torusOn',value)
     if id=='49106':
         schedule('beastOff',value)
