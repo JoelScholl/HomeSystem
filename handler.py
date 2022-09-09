@@ -62,5 +62,5 @@ def plexhook():
 
 @app.route('/torus_shutdown')
 def run_soft_shutdown():
-    torusOff()
+    torusOff.soft_shutdown()
     return '<h3></h3>'
