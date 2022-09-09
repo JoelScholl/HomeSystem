@@ -1,23 +1,40 @@
-import builtins
+#import builtins
 import Lib.audio as audio
-import Lib.hm as hm
-from Lib.logging import print
+#import Lib.hm as hm
+#from Lib.logging import print
 import xml.etree.ElementTree as ET
 import time
 import builtins
 from Lib.scheduler import *
+import json
 
-def print(*args):
-    input_str=''
-    for strs in args:
-        input_str+=' '+str(strs)
-    builtins.print("["+time.asctime()+"]: "+input_str)
+from flask import Flask
+from flask import request
+from markupsafe import escape
+app = Flask(__name__)
+#Main route handles all
+@app.route('/plex', methods=['POST'])
+def update():
+    payload = json.loads(request.form.get('payload'))
+    print(payload)
+    print(payload['Player']['uuid'],payload['event'])
+    if payload['Player']['uuid'] == '022f12ae-dae4-4196-a78e-ba31e7f9b634':
+            if payload['event']=='media.play' or payload['event']=='media.resume':
+                print(audio.getTorus())
+                audio.set('joel','on','multiroom','60')
+    return '<h3>ID</h3>'
 
-#tv_chk = False if hm.get_state_val('5141','5173','5179') == 'true' else True
-#rkport_chk = False if hm.get_state_val('5337','5379','5383') == 'true' else True
+#Run Flask server upon running process
+if __name__ == '__main__':
+    app.run(debug=True,port=50000,host='192.168.1.44')
 
-#print(tv_chk)
-#print(rkport_chk)
+#http://192.168.0.184:50000/sysvar?id=time&value=1700
 
-t = StrToCron("22:30")
-schedShutdown(t)
+## Homematic Script
+# string url= "http://192.168.178.200/anaus.php";
+# if ( (dom.GetObject(ID_DATAPOINTS)).Get("CUxD.CUX2801001:1.CMD_EXEC")) {
+#     (dom.GetObject(ID_DATAPOINTS)).Get("CUxD.CUX2801001:1.CMD_EXEC").State("curl -s -k " url);
+# }
+# else {
+#     WriteLine("Datenpunkt nicht vorhanden");
+# }

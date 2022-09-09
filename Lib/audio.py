@@ -22,30 +22,58 @@ class zone():
         return
 
 def zoneID(zone:str):
-    zone_dict = {'04':'04','4':'04','joel':'04',
-                '06':'06','6':'06','joelbad':'06'}
+    zone_dict = {'kueche':'01', #Küche
+                 'buero':'03', #Büro
+                 'joel':'04', #Joel
+                 'joelbad':'06', #Bad Joel
+                 'wohnen':'07', #Wohnen
+                 'eltern':'09', #Eltern
+                 'elternbad':'0A', #Bad Eltern
+                 'wintergarten':'0B', #Wintergarten
+                 'sitzplatz':'0C', #Sitzplatz
+                 'terrasse':'0D' #Terasse
+                }
     return zone_dict[zone]
 
 def stateID(state:str):
-    state_dict = {'0':'0','off':'0',
-                '1':'1','on':'1'}
+    state_dict = {'off':'00', #On
+                  'on':'01'   #Off
+                  }
     return state_dict[state]
 
 def srcID(src:str):
-    src_dict = {'05':'05','5':'05','janine':'05','Musik Janine':'05', #Musik Janine: 5
-                '06':'06','6':'06','oppo':'06','Oppo DVD':'06', #Oppo DVD: 06
-                '08':'08','8':'08','tvjoel':'08','TV Joël':'08', #TV Joël: 08
-                '09':'09','9':'09', 'Multiroom':'09', #Multiroom: 09
-                '0A':'0A','A':'0A','Musik Marcel':'0A', #Musik Marcel:  0A
-                '0B':'0B','B':'0B','wohnen':'0B','TV Wohnen':'0B', #TV Wohnen: 0B
-                '21':'21','radio1':'21','iRadio 1':'21', #iRadio 1: 21
-                '12':'12','radio1':'12','iRadio 2':'12' #iRadio 2: 12
+    src_dict = {'janine':'05', #Musik Janine: 5
+                'oppo':'06', #Oppo DVD: 06
+                'tvjoel':'08', #TV Joël: 08
+                'multiroom':'09', #Multiroom: 09
+                'marcel':'0A', #Musik Marcel:  0A
+                'tvwohnen':'0B', #TV Wohnen: 0B
+                'radio1':'21', #iRadio 1: 21
+                'radio2':'12' #iRadio 2: 12
                 }
     return src_dict[src]
 
+##Functions:
 
-def setZone(zone:str, state:str):
-    payload = '01'+zoneID(zone)+'0'+stateID(state)+'\r\n'
+ # 01 Toggle Power
+ # 02 Mute
+ # 03 Source
+ # 04 Volume
+ # 05 Bass
+ # 06 Trebble
+ # 07 Balance
+ # OC PoVolume Toggle / Loudness Toggle / Mono
+ # 0D Max. Volume
+ # 44 Gain
+ # 48 PoVolume
+
+def set(zone:str, state:str, src:str, vol:str):
+    payload = '01'+zoneID(zone)+stateID(state)+'\r\n'+'03'+zoneID(zone)+srcID(src)+'\r\n'+'04'+zoneID(zone)+vol+'\r\n'
+    print(payload)
+    sendCmd(payload)
+
+def setState(zone:str, state:str):
+    payload = '01'+zoneID(zone)+stateID(state)+'\r\n'
     print(payload)
     sendCmd(payload)
 
@@ -53,8 +81,8 @@ def setSrc(zone:str, src:str):
     payload = '03'+zoneID(zone)+srcID(src)+'\r\n'
     sendCmd(payload)
 
-def setVol(zone:str='4', vol:str='10'):
-    payload = '04'+zone+vol+'\r\n'
+def setVol(zone:str, vol:str='10'):
+    payload = '04'+zoneID(zone)+vol+'\r\n'
     sendCmd(payload)
 
 def getBeast():
@@ -73,9 +101,8 @@ def getAmp(amp:int):
     '''Takes an integer in  {0,1,2} and returns the on/off state of the Amp.'''
     if(amp not in range(3)):
         print("Wrong input "+str(amp)+"! Call 'getAmp' with an integer in {0,1,2}!")
-
-    get_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
-    r = www.get(get_amp_url,headers={'Host':'192.168.1.32'},data={}, timeout=3,loop=True)
+    url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
+    r = www.get(url,headers={},data={}, timeout=3,loop=True)
     if(r is None):
         return False
     state = int(r.text[-3])
@@ -83,19 +110,29 @@ def getAmp(amp:int):
     return bool(state)
 
 def setAmp(amp:int,state:bool):
-    func_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=write&name=cur-standby&value="+str(int(state))+"&r=0.666583746119017"
-    r = www.get(func_amp_url,headers={},data={},timeout=1)
+    url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=write&name=cur-standby&value="+str(int(state))+"&r=0.666583746119017"
+    r = www.get(url,headers={},data={},timeout=1)
     print(r)
 
 def setBeast():
-    beast_off = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
-    r = www.get(beast_off,headers={},data={},timeout=1)
+    url = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
+    r = www.get(url,headers={},data={},timeout=1)
     print(r)
-
 
 def setTorus(state:str):
-    torus_url = "http://192.168.1.31/protect/power.htm?power1="+state
-    payload = {}
+    url = "http://192.168.1.31/protect/power.htm?power1="+state
     headers = {'Host':'192.168.1.31','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','Accept':'text/www,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Connection':'keep-alive','Referer':'http://192.168.1.31/protect/power.htm','Upgrade-Insecure-Requests':'1','Authorization':'Basic YWRtaW46YXZy'}
-    r = www.get(torus_url,headers=headers,data=payload,timeout=3)
+    r = www.get(url,headers=headers,data={},timeout=3)
     print(r)
+
+def getTorus():
+    url = "http://192.168.1.31/protect/power.htm"
+    headers = {'Host':'192.168.1.31','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','Accept':'text/www,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Connection':'keep-alive','Referer':'http://192.168.1.31/protect/power.htm','Upgrade-Insecure-Requests':'1','Authorization':'Basic YWRtaW46YXZy'}
+    r = www.get(url,headers=headers,data={},timeout=3,loop=True,nmax=3)
+    if(r is not None):
+        print(r.text[1126:-507])
+        state = False if r.text[1126:-507]=='OFF' else True
+    else:
+        state = False
+    return state
+

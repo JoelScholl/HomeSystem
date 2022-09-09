@@ -2,8 +2,14 @@ from flask import Flask
 from flask import request
 from markupsafe import escape
 import Lib.hm as hm
+import Lib.audio as audio
 from Lib.logging import print
 from Lib.scheduler import *
+import time
+import json
+
+### States ###
+#tv = False
 
 app = Flask(__name__)
 
@@ -27,13 +33,25 @@ def sysvar():
     #Switch to correct function
     if id=='52798':
         schedule('torusOff',value)
+    if id=='60189'
+        schedule('torusOn',value)
     if id=='49106':
         schedule('beastOff',value)
-
+    
     return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
 
-@app.route('/plex')
+@app.route('/plex', methods=['POST'])
 def plexhook():
-    with open('home/pi/HomeSystem/PlexLog.log','w') as f:
-        f.write(request.data)
-    return "hi"
+        payload = json.loads(request.form.get('payload'))
+        This could cause potentially forceful takeover of speaker source if left playing in the background.
+        if payload['Player']['uuid'] == '022f12ae-dae4-4196-a78e-ba31e7f9b634':
+            if payload['event']=='media.play' or payload['event']=='media.resume':
+                if(not audio.getTorus()):
+                    audio.setTorus('on')
+                    audio.setState(deviceID('joelaux'))
+                    time.sleep(10)
+                    audio.set('joel','on','multiroom','60')
+                else:
+                    audio.setState(deviceID('joelaux'))
+                    audio.set('joel','on','multiroom','60')
+    return
