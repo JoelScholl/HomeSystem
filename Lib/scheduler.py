@@ -5,9 +5,8 @@ def sudo(command):
     return os.system(f"sudo bash -c '{command}'")
 
 def StrToCron(time:str):
-    hour = time.split(':')[0].lstrip('0')
-    minute = time.split(':')[1].lstrip('0')
-    print(minute+' '+hour)
+    hour = time.split(':')[0]
+    minute = time.split(':')[1]
     return minute+' '+hour
 
 def schedule(script:str,time:str):
