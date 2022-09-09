@@ -58,9 +58,9 @@ def plexhook():
                 else:
                     hm.setState('joelaux','true')
                     audio.set('joel','on','multiroom','60')
-        return
+        return '<h3></h3>'
 
 @app.route('/torus_shutdown')
 def run_soft_shutdown():
     torusOff()
-    return
+    return '<h3></h3>'

@@ -7,7 +7,7 @@ from Lib.logging import print
 from Lib.scheduler import *
 import time
 import json
-from torusOff import main as torusOff
+import torusOff
 
 ### States ###
 #tv = False
@@ -59,7 +59,7 @@ def plexhook():
 
 @app.route('/torus_shutdown')
 def run_soft_shutdown():
-    torusOff()
+    torusOff.force_shutdown()
     return '<h3></h3>'
 
 
