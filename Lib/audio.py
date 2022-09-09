@@ -101,9 +101,8 @@ def getAmp(amp:int):
     '''Takes an integer in  {0,1,2} and returns the on/off state of the Amp.'''
     if(amp not in range(3)):
         print("Wrong input "+str(amp)+"! Call 'getAmp' with an integer in {0,1,2}!")
-
-    get_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
-    r = www.get(get_amp_url,headers={'Host':'192.168.1.32'},data={}, timeout=3,loop=True)
+    url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=read"
+    r = www.get(url,headers={},data={}, timeout=3,loop=True)
     if(r is None):
         return False
     state = int(r.text[-3])
@@ -111,19 +110,29 @@ def getAmp(amp:int):
     return bool(state)
 
 def setAmp(amp:int,state:bool):
-    func_amp_url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=write&name=cur-standby&value="+str(int(state))+"&r=0.666583746119017"
-    r = www.get(func_amp_url,headers={},data={},timeout=1)
+    url = "http://192.168.1.3"+str((2+2*amp))+"/Web/Handler.php?page=home&action=write&name=cur-standby&value="+str(int(state))+"&r=0.666583746119017"
+    r = www.get(url,headers={},data={},timeout=1)
     print(r)
 
 def setBeast():
-    beast_off = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
-    r = www.get(beast_off,headers={},data={},timeout=1)
+    url = "http://192.168.1.12/shared/taskmanager.php?task=system&cmd=stop"
+    r = www.get(url,headers={},data={},timeout=1)
     print(r)
-
 
 def setTorus(state:str):
-    torus_url = "http://192.168.1.31/protect/power.htm?power1="+state
-    payload = {}
+    url = "http://192.168.1.31/protect/power.htm?power1="+state
     headers = {'Host':'192.168.1.31','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','Accept':'text/www,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Connection':'keep-alive','Referer':'http://192.168.1.31/protect/power.htm','Upgrade-Insecure-Requests':'1','Authorization':'Basic YWRtaW46YXZy'}
-    r = www.get(torus_url,headers=headers,data=payload,timeout=3)
+    r = www.get(url,headers=headers,data={},timeout=3)
     print(r)
+
+def getTorus():
+    url = "http://192.168.1.31/protect/power.htm"
+    headers = {'Host':'192.168.1.31','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0','Accept':'text/www,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8','Accept-Language':'en-US,en;q=0.5','Accept-Encoding':'gzip, deflate','Connection':'keep-alive','Referer':'http://192.168.1.31/protect/power.htm','Upgrade-Insecure-Requests':'1','Authorization':'Basic YWRtaW46YXZy'}
+    r = www.get(url,headers=headers,data={},timeout=3,loop=True,nmax=3)
+    if(r is not None):
+        print(r.text[1126:-507])
+        state = False if r.text[1126:-507]=='OFF' else True
+    else:
+        state = False
+    return state
+

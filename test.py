@@ -18,9 +18,10 @@ def update():
     payload = json.loads(request.form.get('payload'))
     print(payload)
     print(payload['Player']['uuid'],payload['event'])
-    if payload['Player']['uuid'] == '022f12ae-dae4-4196-a78e-ba31e7f9b634' and (payload['event']=='media.play' or payload['event']=='media.resume'):
-        print('Turning on speakers')
-        audio.set('joel','on','multiroom','60')
+    if payload['Player']['uuid'] == '022f12ae-dae4-4196-a78e-ba31e7f9b634':
+            if payload['event']=='media.play' or payload['event']=='media.resume':
+                print(audio.getTorus())
+                audio.set('joel','on','multiroom','60')
     return '<h3>ID</h3>'
 
 #Run Flask server upon running process
