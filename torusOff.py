@@ -41,8 +41,5 @@ def main():
         print("Forcing shutdown at 1:00 am!")
         soft_shutdown()
 
-def force_shutdown():
-    soft_shutdown()
-
 if __name__== '__main__':
     main()
