@@ -36,4 +36,4 @@ def sysvar():
 def plexhook():
     with open('home/pi/HomeSystem/PlexLog.log','w') as f:
         f.write(request.data)
-    return
+    return "hi"
