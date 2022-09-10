@@ -26,14 +26,13 @@ def soft_shutdown():
     audio.setTorus('off')
 
 def main():
-    auto_chk = True if (hm.getSysVar('50807')['value_text']=='auto') else False
     joel_chk = False if (hm.getStateVal('stromjoel') == 'true') else True
     tv_chk = False if (hm.getStateVal('tv') == 'true') else True
     rkport_chk = False if (hm.getStateVal('rockports') == 'true') else True
 
-    print("Auto_chk",auto_chk,"joel_chk",joel_chk,"tv_chk",tv_chk,"rkport_chk",rkport_chk)
+    print("joel_chk",joel_chk,"tv_chk",tv_chk,"rkport_chk",rkport_chk)
 
-    if(auto_chk and joel_chk and tv_chk and rkport_chk):
+    if(joel_chk and tv_chk and rkport_chk):
         print("All checks passed!")
         soft_shutdown()
 

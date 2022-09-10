@@ -66,14 +66,3 @@ def run_soft_shutdown():
 #Run Flask server upon running process
 if __name__ == '__main__':
     app.run(debug=True,port=32800,host='192.168.1.44')
-
-#http://192.168.0.184:50000/sysvar?id=time&value=1700
-
-## Homematic Script
-# string url= "http://192.168.178.200/anaus.php";
-# if ( (dom.GetObject(ID_DATAPOINTS)).Get("CUxD.CUX2801001:1.CMD_EXEC")) {
-#     (dom.GetObject(ID_DATAPOINTS)).Get("CUxD.CUX2801001:1.CMD_EXEC").State("curl -s -k " url);
-# }
-# else {
-#     WriteLine("Datenpunkt nicht vorhanden");
-# }
