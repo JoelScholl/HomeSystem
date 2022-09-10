@@ -29,6 +29,7 @@ def getSysVarList(arg:str=''):
     return varlist
 
 def deviceID(device:str):
+    print(device)
     id = {'stromjoel':('5263','5293','5297'),
           'joelaux':('2735','2760','2764'),
           'tv':('5263','5293','5297'),
