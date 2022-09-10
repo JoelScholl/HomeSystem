@@ -62,7 +62,7 @@ def srcID(src:str):
  # 05 Bass
  # 06 Trebble
  # 07 Balance
- # OC PoVolume Toggle / Loudness Toggle / Mono
+ # OC PoVolume Toggle / Loudness Toggle / Mono Toggle
  # 0D Max. Volume
  # 44 Gain
  # 48 PoVolume

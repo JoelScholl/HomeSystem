@@ -10,9 +10,9 @@ def parseXML(content:str):
     return root
 
 def call(cgi:str,params:str=''):
-    hm_url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
-    print("Calling:",hm_url)
-    response = www.get(hm_url,headers={},data={},timeout=10)
+    url = "http://192.168.1.41/addons/xmlapi/"+cgi+".cgi"+params
+    print("Calling:",url)
+    response = www.get(url,headers={},data={},timeout=10)
     if(response):
         return response
 
