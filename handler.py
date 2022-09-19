@@ -1,6 +1,7 @@
 
 import time
 import json
+import logging
 
 from flask import Flask
 from flask import request
@@ -64,3 +65,9 @@ def plexhook():
 def run_soft_shutdown():
     torusOff.soft_shutdown()
     return '<h3></h3>'
+
+if __name__ != '__main__':
+    logHandler = logging.FileHandler('/var/log/homesystem.log')
+    logHandler.setLevel(logging.INFO)
+    flaskApp.logger.addHandler(logHandler)
+    flaskApp.logger.setLevel(logging.INFO)
