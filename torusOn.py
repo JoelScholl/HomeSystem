@@ -1,7 +1,7 @@
 import Lib.audio as audio
 from Lib.logging import print
 
-main():
+def main():
     print(audio.setTorus('on'))
 
 if __name__== '__main__':
