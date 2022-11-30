@@ -31,6 +31,7 @@ def sysvar():
     id = request.args.get('id')
     name = request.args.get('name')
     value = hm.VarToString(id,request.args.get('value'))
+    ppl_chk = hm.getSysVar('8177')['value']
     print("ID:",id)
     print("Name:",name)
     print("Value:",value)
@@ -43,7 +44,7 @@ def sysvar():
     if id=='49106':
         schedule('beastOff',value)
     
-    return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
+    return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3><h3>ppl: {}</h3>'.format(escape(id),escape(name),escape(value),escape(ppl_chk))
 
 @app.route('/plex', methods=['POST'])
 def plexhook():
