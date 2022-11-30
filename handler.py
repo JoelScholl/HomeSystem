@@ -31,7 +31,6 @@ def sysvar():
     id = request.args.get('id')
     name = request.args.get('name')
     value = hm.VarToString(id,request.args.get('value'))
-    ppl_chk = hm.getSysVar('8177')['value']
     print("ID:",id)
     print("Name:",name)
     print("Value:",value)
@@ -43,8 +42,7 @@ def sysvar():
         schedule('torusOn',value)
     if id=='49106':
         schedule('beastOff',value)
-    
-    return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3><h3>ppl: {}</h3>'.format(escape(id),escape(name),escape(value),escape(ppl_chk))
+    return '<h3>ID: {}</h3><h3>Name: {}</h3><h3>Value: {}</h3>'.format(escape(id),escape(name),escape(value))
 
 @app.route('/plex', methods=['POST'])
 def plexhook():
@@ -68,7 +66,6 @@ def run_soft_shutdown():
     return '<h3></h3>'
 
 if __name__ != '__main__':
-    logHandler = logging.FileHandler('/var/log/homesystem.log')
-    logHandler.setLevel(logging.INFO)
-    flaskApp.logger.addHandler(logHandler)
-    flaskApp.logger.setLevel(logging.INFO)
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)

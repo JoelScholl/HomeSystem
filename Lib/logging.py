@@ -10,4 +10,4 @@ def print(*args):
     builtins.print("["+time.asctime()+"]: "+input_str)
 
 def log(*args):
-    return
+   return
