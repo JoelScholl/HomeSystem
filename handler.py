@@ -15,6 +15,9 @@ from Lib.scheduler import *
 
 ### States ###
 #tv = False
+#app.logger.info
+#app.logger.warning
+#app.logger.debug
 
 app = Flask(__name__)
 
