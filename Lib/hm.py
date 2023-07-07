@@ -33,7 +33,8 @@ def deviceID(device:str):
     id = {'stromjoel':('5263','5293','5297'),
           'joelaux':('2735','2760','2764'),
           'tv':('5263','5293','5297'),
-          'rockports':('5336','5379','5383')
+          'rockports':('5336','5379','5383'),
+          'denon':('0','0','1584')
           }
     return id[device]
 

@@ -2,6 +2,7 @@
 import time
 import json
 import logging
+#import ptvsd \\ For Remote debugging
 
 from flask import Flask
 from flask import request
@@ -18,6 +19,14 @@ from Lib.scheduler import *
 #app.logger.info
 #app.logger.warning
 #app.logger.debug
+
+## For remote debugging experiments, check:
+# https://medium.com/@lassebenninga/how-to-debug-flask-running-in-docker-compose-in-vs-code-ef37f0f516ee
+#
+#ptvsd.enable_attach(address=('0.0.0.0',5678))
+#ptvsd.wait_for_attach()
+
+# Debug by receiving plex webhooks directly on local system.
 
 app = Flask(__name__)
 
@@ -50,6 +59,7 @@ def sysvar():
 @app.route('/plex', methods=['POST'])
 def plexhook():
         payload = json.loads(request.form.get('payload'))
+        print(payload)
         #This could cause potentially forceful takeover of speaker source if left playing in the background.
         if payload['Player']['uuid'] == '022f12ae-dae4-4196-a78e-ba31e7f9b634':
             if payload['event']=='media.play' or payload['event']=='media.resume':
@@ -72,3 +82,5 @@ if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+#else:
+#    app.run(port='32800')
